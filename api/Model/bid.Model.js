@@ -5,7 +5,7 @@ const bidSchema = new mongoose.Schema({
   gigId:{type:mongoose.Schema.Types.ObjectId, required:true, ref:'gig'},
   message:{type:String, required:true},
   bidAmt:{type:Number,required:true},
-  status:{type:String,enum:["Pending","Hired","Completed","Rejected","Failed-To-complete"],default:"Open"},
+  status:{type:String,enum:["Pending","Hired","Rejected"],default:"Pending"},
 },{timestamps:true});
 
 

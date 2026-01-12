@@ -5,7 +5,6 @@ const apiError = require('../Utils/apiError.Utils')
 function bidData(req, res, next) {
   try {
     const reqBody = z.object({
-      freelancerId: z.string().min(16).max(64),
       gigId: z.string().min(16).max(64),
       message: z.string().min(3).max(100),
       bidAmt: z.number({ required_error: "Bid Ammount is required" }).min(50),

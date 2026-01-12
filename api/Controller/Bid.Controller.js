@@ -1,0 +1,50 @@
+const Bid = require("../Model/bid.Model")
+const Gig = require("../Model/gig.Model")
+const apiResponse = require("../Utils/apiResponse.Utils")
+const apiError = require("../Utils/apiError.Utils")
+
+
+
+async function postBid(req, res) {
+  try {
+    const { gigId, message, bidAmt } = req.body
+    
+    const gigUser = await Gig.findById(gigId).select('ownerId')
+    if(req.user._id == gigUser.toString()){
+      return res.status(400).json(new apiError(400,"Owner cannot apply"))
+    }
+    
+    const bid = await Bid.create({
+      freelancerId:req.user._id,
+      gigId,
+      message,
+      bidAmt
+    })
+
+    return res.status(201).json(new apiResponse(201,"bid posted succesfuly",bid))
+
+  } catch (e) {
+
+  }
+}
+
+async function getBidsForOwner(req,res){
+  try {
+    const gigId = req.params.gigId
+    const gigUser = await Gig.findById(gigId).select('ownerId')
+    if(gigUser.toString()!=req.user._id){
+      return res.status(400).json(new apiError(400,"Not Authorized"))
+    }
+
+    const bids = await Bid.find({gigId}).populate('freelancerId',"fName lName email")
+
+    return res.status(200).json(new apiResponse(200,"All bids delivered",{bids}))
+  } catch (e) {
+    return res.status(500).json(new apiError(500,"Server Error",e))
+  }
+}
+
+module.exports={
+  postBid,
+  getBidsForOwner
+}

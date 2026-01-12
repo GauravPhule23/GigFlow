@@ -6,7 +6,7 @@ const gigSchema = new mongoose.Schema({
   description:{type:String},
   budget:{type:Number,required:true},
   status:{type:String,enum:["Open","Assigned","Completed"],default:"Open"},
-  hiredBid:{type:String,required:true},
+  hiredBid:{type:mongoose.Schema.Types.ObjectId, ref:'bid'},
   completionDate:{type:Date,required:true},
 },{timestamps:true});
 

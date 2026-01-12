@@ -5,7 +5,6 @@ const apiError = require('../Utils/apiError.Utils')
 function gigData(req, res, next) {
   try {
     const reqBody = z.object({
-      ownerId: z.string().min(16).max(64),
       title: z.string().min(3).max(50),
       description: z.string().min(3).max(500).optional(),
       budget: z.number({ required_error: "Budget is required" }).min(100),
