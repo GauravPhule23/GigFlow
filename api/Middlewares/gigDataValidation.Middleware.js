@@ -28,6 +28,4 @@ function gigData(req, res, next) {
 
 
 
-module.exports={
-  gigData
-}
+module.exports=gigData

@@ -27,6 +27,4 @@ function bidData(req, res, next) {
 
 
 
-module.exports={
-  bidData
-}
+module.exports=bidData

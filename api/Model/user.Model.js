@@ -22,8 +22,8 @@ userSchema.pre('save', async function (next) {
   }
 })
 
-userSchema.method("sign-in-user", async (password) => {
-  const user = await this
+userSchema.method("sign_in_user", async function (password){
+  const user = this
   if (!user) throw new apiError("No User found")
   const isMatch = await bcrypt.compare(password, user.password)
   if (isMatch) {
@@ -31,7 +31,7 @@ userSchema.method("sign-in-user", async (password) => {
     return token;
   } else {
     throw new apiError(400, "Password is incorrect")
-    return
+    
   }
 })
 

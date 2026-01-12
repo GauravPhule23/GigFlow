@@ -6,6 +6,8 @@ const cookieParser = require("cookie-parser");
 // DB Connection
 const conectionDB = require('./connection')
 
+// Routers
+const authRouter =  require('./Routes/Auth.Route')
 
 const app = express();
 
@@ -21,6 +23,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 conectionDB();
+
+app.use('/api/auth',authRouter)
 
 
 
