@@ -17,6 +17,7 @@ function registrationData(req, res, next) {
 
     const data = reqBody.safeParse(req.body)
     if (data.success) {
+      req.body = data.data
       next();
     } else {
       res.status(400).json(new apiError(400, "Data Validation Failed", data.error))
@@ -41,6 +42,7 @@ function loginData(req, res, next) {
 
     const data = reqBody.safeParse(req.body)
     if (data.success) {
+      req.body = data.data
       next();
     } else {
       res.status(400).json(new apiError(400, "Data Validation Failed", data.error))
