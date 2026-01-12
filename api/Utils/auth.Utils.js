@@ -5,8 +5,7 @@ const secreteKey = process.env.JWT_SECRETE_KEY
 async function createToken(user){
  
   const payload ={
-    _id : user._id,
-    
+    _id : user._id    
   }
 
   const token = await JWT.sign(payload,secreteKey,{
