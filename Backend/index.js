@@ -15,6 +15,7 @@ const bidRouter = require('./Routes/Bid.Route')
 const checkToken = require('./Middlewares/auth.Middleware');
 
 const app = express();
+app.set('trust proxy', 1); //for render loadBalancer
 
 app.use(cors({
   origin:process.env.FRONTEND_URL,

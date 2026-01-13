@@ -9,30 +9,35 @@ async function sign_up(req,res){
     const {fName, lName, email, password} = req.body;
     
     const isUser = await User.find({email});
-    if(isUser){
+    console.log("inside "+isUser)
+    if(isUser===undefined){
+      console.log("inside inside")
       res.status(409).json(new apiError(409,"email already exists"))
       return
     }
-
+    console.log("bfr creation")
+    
     const user = await User.create({
       fName,
       lName,
       email,
       password
     })
-
+    
+    console.log("aftr creation")
     const resData={
       _id:user._id,
       fName:user.fName,
       lName:user.lName,
       email:user.email
     }
+    console.log("awhile response")
 
     res.status(201).json(new apiResponse(201,"User Created",resData))
     return
   } catch (e) {
     console.log(e);
-    res.status(500).json(new apiError(500,"Internal Server Error",e))
+    res.status(500).json(new apiError(e.statusCode,e.message,e))
     return
   }
 }
@@ -42,24 +47,31 @@ async function login(req,res){
   try {
     const {email, password} = req.body;
     
-    const isUser = await User.find({email});
+    const isUser = await User.findOne({email});
+    console.log("inside login")
     if(!isUser){
       res.status(404).json(new apiError(404,"user not found"))
       return
     }
-
-    const token = await user.sign_in_user(password)
+    console.log("inside login bfr token generation")
+    
+    const token = await isUser.signinUser(password)
+    console.log("inside login aftr token generation")
     if(!token){
+      console.log("token failed")
       res.status(409).json(new apiError(409,"invalid email or password"))
       return
     }
+    console.log("bfr options")
     const options = {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'none' 
-  };
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none' 
+    };
+    console.log("aftr options")
     
-    res.status(200).cookie("accessToken", token, options).json(new apiResponse(200, "User logged in successfully", { user, token }));
+    res.status(200).cookie("token", token, options).json(new apiResponse(200, "User logged in successfully", { token }));
+    console.log("aftr response")
     return
   } catch (e) {
     console.log(e);

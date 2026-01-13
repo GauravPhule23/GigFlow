@@ -31,12 +31,16 @@ async function postBid(req, res) {
 async function getBidsForOwner(req,res){
   try {
     const gigId = req.params.gigId
+    console.log(gigId + "got")
     const gigUser = await Gig.findById(gigId).select('ownerId')
-    if(gigUser.toString()!=req.user._id){
-      return res.status(400).json(new apiError(400,"Not Authorized"))
+    console.log(gigUser.ownerId.toString())
+    if(gigUser.ownerId.toString()!=req.user._id){
+      console.log("inside check")
+      return res.status(400).json(new apiError(400,["Not Authorized"]))
     }
-
+    console.log("bfr bids find")
     const bids = await Bid.find({gigId}).populate('freelancerId',"fName lName email")
+    console.log("aftr bids find")
 
     return res.status(200).json(new apiResponse(200,"All bids delivered",{bids}))
   } catch (e) {

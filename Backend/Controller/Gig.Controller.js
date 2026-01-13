@@ -27,7 +27,7 @@ async function postGig(req,res){
 
 async function searchGig(req,res){
   try {
-    const {status, self, page=1, limit=10} = req.query
+    const {status="Open", self=false, page=1, limit=10} = req.query
 
     const query = {};
     if(status){
@@ -37,18 +37,20 @@ async function searchGig(req,res){
       query.ownerId = req.user._id
     }
     const skip = (Number(page)-1)*Number(limit);
-    const gigs = await Gigs.find(query)
+    console.log("inside gig search bfr search")
+    const gigs = await Gig.find(query)
     .sort({createdAt:-1})
     .skip(skip)
     .limit(Number(limit))
     .populate('ownerId','fName lName')
-
+    
+    console.log("inside gig search aftr search")
     return res.status(200).json(
       new apiResponse(200, "Gigs fetched", { gigs, total:Object.keys(gigs).length, page: Number(page) })
     );
 
   } catch (e) {
-    return res.status(500).json(new apiError(500, "Server Error", e));
+    return res.status(500).json(new apiError(e.code, e.message, e));
   }
 }
 

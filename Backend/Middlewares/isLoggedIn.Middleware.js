@@ -1,6 +1,6 @@
-import apiError from "../Utils/apiError.Utils";
+const apiError = require('../Utils/apiError.Utils');
 
-export function isLogin(req,res,next){
+function isLogin(req,res,next){
   try {
     if(req.isLoggedIn){
       next();
@@ -14,3 +14,5 @@ export function isLogin(req,res,next){
     
   }
 }
+
+module.exports = isLogin

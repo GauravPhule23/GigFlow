@@ -13,16 +13,20 @@ const userSchema = new mongoose.Schema({
 userSchema.pre('save', async function (next) {
   try {
     const user = this
+    console.log("inside pre")
     if (!user.isModified("password")) return
+    console.log("while hash")
     const hashPass = await bcrypt.hash(user.password, 5)
     this.password = hashPass;
-    next();
+    console.log("after hash")
+    // next();
   } catch (e) {
-    throw new apiError(500, e.message, [...e])
+    console.log("inside catch")
+    throw new apiError(500, e.message)
   }
 })
 
-userSchema.method("sign_in_user", async function (password){
+userSchema.method("signinUser", async function (password){
   const user = this
   if (!user) throw new apiError("No User found")
   const isMatch = await bcrypt.compare(password, user.password)

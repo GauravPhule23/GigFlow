@@ -1,0 +1,41 @@
+Gigs post jobs (Clients)
+Freelancer can apply for jobs
+
+Any user can post a job (Client) or bid on a job (Freelancer).
+
+A public/private feed showing all "Open" jobs.
+Users should be able to search for jobs by title
+A form for logged-in users to post a job with Title, Description, and Budget.
+
+
+The "Hiring" Logic (Crucial)
+
+A freelancer submits a "Bid" (message + price) on a gig.
+The Client who posted the job sees a list of all Bids.
+The Client clicks a "Hire" button on one specific Bid.
+The Gig status must change from open to assigned
+The chosen Bid status becomes hired.
+ All other Bids for that same Gig should automatically be marked as rejected.
+
+ User:
+  fname:
+  lname:
+  email:
+  password:
+
+Gig:
+ ownerId:  ref to User
+ title:
+ description:
+ budget:
+ status: [open, assigned, completed]
+ hiredBid: ref to Bid
+ completionDate:
+
+
+Bid:
+ freelancerId: ref to User
+ gigId: ref to Gig
+ message:
+ bidAmt:
+ status: [pending, hired, rejected, completed, Failed-To-complete]

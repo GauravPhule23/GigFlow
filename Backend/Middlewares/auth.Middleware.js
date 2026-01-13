@@ -5,6 +5,7 @@ function checkToken(cookieName){
     req.isLoggedIn = false;
     let tokenValue = await req.cookies[cookieName]
     if (!tokenValue) {
+      console.log("dosent have token from cookies")
       const authHeader = req.headers.authorization;
       if (authHeader && authHeader.startsWith("Bearer ")) {
         tokenValue = authHeader.split(" ")[1];
