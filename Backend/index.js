@@ -10,6 +10,7 @@ const conectionDB = require('./connection')
 const authRouter =  require('./Routes/Auth.Route');
 const gigRouter = require('./Routes/Gig.Route')
 const bidRouter = require('./Routes/Bid.Route')
+const meRouter = require('./Routes/Me.Route')
 
 // some custom middlewares
 const checkToken = require('./Middlewares/auth.Middleware');
@@ -31,6 +32,7 @@ app.use(checkToken('token'));
 
 conectionDB();
 
+app.use('/api/me',meRouter)
 app.use('/api/auth',authRouter)
 app.use('/api/gigs',gigRouter)
 app.use('/api/bids',bidRouter)
