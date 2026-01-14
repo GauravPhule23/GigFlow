@@ -65,7 +65,7 @@ async function getGig(req,res){
     if(!id){
       return res.status(400,"Gig id required")
     }
-    const detail = await Gig.findById(id).populate({
+    const detail = await Gig.findById(id).populate([{
       path:'ownerId',
       select:'fName lName'
     },{
@@ -75,7 +75,7 @@ async function getGig(req,res){
       path: 'freelancerId',        // This field is inside the 'Bid' model
       select: 'fName lName'
       }
-    })
+    }])
     if(!detail){
       return res.status(404,"Gig no found")
     }
