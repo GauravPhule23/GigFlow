@@ -33,6 +33,8 @@ export const AuthProvider = ({ children }) => {
       toast.success("Welcome back!");
       return true;
     } catch (error) {
+      // console.log("error : " + error)
+      // console.log(error.response)
       toast.error(error.response?.data?.message || "Login failed");
       return false;
     }

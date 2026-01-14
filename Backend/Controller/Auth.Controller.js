@@ -52,7 +52,8 @@ async function login(req,res){
     console.log("inside login")
     if(!isUser){
       console.log("inside login 2")
-      res.status(404).json(new apiError(404,"user not found"))
+      const error = new apiError(404,"Invalid email")
+      res.status(404).json(error)
       return
     }
     console.log("inside login bfr token generation")

@@ -20,7 +20,7 @@ const ViewBids = () => {
         setBids(data.data.bids || []);
       } catch (error) {
         console.error("Error fetching bids:", error);
-        toast.error("Could not load bids.");
+        toast.error(error.data.message || " Could not load bids.");
       } finally {
         setLoading(false);
       }
