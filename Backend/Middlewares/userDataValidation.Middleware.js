@@ -8,9 +8,9 @@ function registrationData(req, res, next) {
   try {
     console.log("inside "+req.body.lName)
     const reqBody = z.object({
-      fName: z.string().min(3).max(100),
+      fName: z.string().min(3).max(30),
       lName: z.string().min(3).optional().or(z.literal("")),
-      email: z.email().min(3).max(20),
+      email: z.email().min(3).max(100),
       password: z.string().min(3).max(20)
       .regex(/[A-Z]/, { message: "At least a Capital Letter" })
       .regex(/[a-z]/, { message: "At least a small Letter" })
