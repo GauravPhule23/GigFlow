@@ -68,7 +68,7 @@ const GigDetails = () => {
         <div className="flex flex-wrap gap-6 mb-8 text-gray-600 dark:text-gray-300">
           <div className="flex items-center gap-2">
             <User size={18} className="text-blue-500" /> 
-            <span>Posted by Owner</span>
+            <span>Posted by {gig.ownerId.fName} {gig.ownerId.lName}</span>
           </div>
           <div className="flex items-center gap-2">
             <Calendar size={18} className="text-purple-500" /> 

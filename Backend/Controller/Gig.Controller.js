@@ -66,6 +66,9 @@ async function getGig(req,res){
       return res.status(400,"Gig id required")
     }
     const detail = await Gig.findById(id).populate({
+      path:'ownerId',
+      select:'fName lName'
+    },{
       path:'hiredBid',
       select: 'freelancerId amount', // Select fields from the Bid document
     populate: {

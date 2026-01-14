@@ -8,7 +8,7 @@ function gigData(req, res, next) {
   try {
     console.log("inside validation")
     const reqBody = z.object({
-      title: z.string().min(3).max(50),
+      title: z.string().min(3).max(200),
       description: z.string().min(3).or(z.literal("")).optional(),
       budget: z.number({ required_error: "Budget is required" }).min(100),
       completionDate: z.coerce.date().min(new Date(),{message:"Date must be in future."}),
