@@ -2,7 +2,7 @@ const User = require('../Model/user.Model')
 const apiResponse = require('../Utils/apiResponse.Utils')
 const apiError = require('../Utils/apiError.Utils')
 
-
+// handels signup
 
 async function sign_up(req,res){
   try {
@@ -42,6 +42,7 @@ async function sign_up(req,res){
   }
 }
 
+// handels signin
 
 async function login(req,res){
   try {
@@ -81,6 +82,7 @@ async function login(req,res){
   }
 }
 
+// handels logout
 async function logout(req,res){
   try{
     res.status(200).clearCookie("token", { 

@@ -2,11 +2,13 @@ const { z } = require('zod')
 const apiError = require('../Utils/apiError.Utils')
 
 
+// data validation for registering
+
 function registrationData(req, res, next) {
   try {
     console.log("inside "+req.body.lName)
     const reqBody = z.object({
-      fName: z.string().min(3).max(20),
+      fName: z.string().min(3).max(100),
       lName: z.string().min(3).optional().or(z.literal("")),
       email: z.email().min(3).max(20),
       password: z.string().min(3).max(20)
@@ -34,11 +36,12 @@ function registrationData(req, res, next) {
   }
 }
 
+// data validation for login data
 
 function loginData(req, res, next) {
   try {
     const reqBody = z.object({
-      email: z.email().min(3).max(20),
+      email: z.email().min(3).max(100),
       password: z.string().min(3).max(20)
         .regex(/[A-Z]/, { message: "At least a Capital Letter" })
         .regex(/[a-z]/, { message: "At least a small Letter" })

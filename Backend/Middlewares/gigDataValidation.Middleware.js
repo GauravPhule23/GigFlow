@@ -2,6 +2,8 @@ const { z } = require('zod')
 const apiError = require('../Utils/apiError.Utils')
 
 
+// Gig post data validation
+
 function gigData(req, res, next) {
   try {
     console.log("inside validation")

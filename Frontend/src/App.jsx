@@ -4,7 +4,7 @@ import DashboardLayout from './Components/DashboardLayout';
 import Dashboard from './pages/Dashboard';
 import GigDetails from './pages/GetDetails';
 import Login from './pages/Login';
-import Home from './pages/Home'; // Import the new Home
+import Home from './pages/Home'; 
 import Register from './pages/Register';
 import ViewBids from './pages/ViewBids';  
 
@@ -14,8 +14,6 @@ import CreateGig from './pages/CreateGig';
 axios.defaults.baseURL = "http://localhost:3000";
 axios.defaults.withCredentials = true; 
 
-// Placeholder for Register until you create it
-// const Register = () => <div className="p-10">Register Page</div>;
 
 function App() {
   return (

@@ -4,14 +4,14 @@ import App from './App.jsx'
 import './index.css'
 import axios from 'axios';
 import { Toaster } from 'react-hot-toast'
-import { AuthProvider } from './context/authContext.jsx' // Import this
+import { AuthProvider } from './context/authContext.jsx' 
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <AuthProvider> {/* <--- CRITICAL WRAPPER */}
+    <AuthProvider> 
       <App />
       <Toaster position="top-right" />
     </AuthProvider>

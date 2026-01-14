@@ -7,16 +7,16 @@ import { User, IndianRupee, Mail, Clock, CheckCircle, ArrowLeft, XCircle } from 
 const ViewBids = () => {
   const { id } = useParams(); // This is the Gig ID
   const navigate = useNavigate();
-  
+
   const [bids, setBids] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    
+
     const fetchData = async () => {
       try {
         const { data } = await api.get(`/api/bids/${id}`);
-        // Handle data structure (data.data.bids based on your log)
+        // Handle data structure (data.data.bids)
         setBids(data.data.bids || []);
       } catch (error) {
         console.error("Error fetching bids:", error);
@@ -40,7 +40,7 @@ const ViewBids = () => {
       toast.success(`Successfully hired ${bidderName}!`);
       // Reload to see the new status
       location.reload();
-      
+
     } catch (error) {
       console.error(error);
       toast.error(error.response?.data?.message || "Hiring failed");
@@ -77,11 +77,11 @@ const ViewBids = () => {
 
   return (
     <div className="max-w-5xl mx-auto px-4">
-      
+
       {/* Header */}
       <div className="mb-8">
-        <button 
-          onClick={() => navigate(-1)} 
+        <button
+          onClick={() => navigate(-1)}
           className="flex items-center text-gray-500 hover:text-blue-600 mb-4 transition"
         >
           <ArrowLeft size={20} className="mr-2" /> Back to Gig
@@ -98,11 +98,11 @@ const ViewBids = () => {
       {bids.length > 0 ? (
         <div className="grid gap-6">
           {bids.map((bid) => (
-            <div 
-              key={bid._id} 
+            <div
+              key={bid._id}
               className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 flex flex-col md:flex-row md:items-start gap-6 transition-all hover:shadow-md"
             >
-              
+
               {/* Bidder Avatar */}
               <div className="flex-shrink-0">
                 <div className="w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-300 text-xl font-bold">
@@ -121,7 +121,7 @@ const ViewBids = () => {
                       <Mail size={14} /> {bid.freelancerId?.email}
                     </div>
                   </div>
-                  
+
                   {/* Bid Amount */}
                   <div className="mt-2 md:mt-0 text-right">
                     <div className="text-2xl font-bold text-green-600 flex items-center md:justify-end gap-1">
@@ -140,13 +140,13 @@ const ViewBids = () => {
 
                 {/* Status Text (Below details) */}
                 <div className="mt-3 flex items-center gap-2 text-sm font-medium text-gray-500 dark:text-gray-400">
-                    <Clock size={14} /> Status: <span className="uppercase">{bid.status || "Pending"}</span>
+                  <Clock size={14} /> Status: <span className="uppercase">{bid.status || "Pending"}</span>
                 </div>
               </div>
 
               {/* Action Column */}
               <div className="flex flex-col justify-center min-w-[160px]">
-                
+
                 {/* CONDITIONAL RENDERING: Button vs Status Badge */}
                 {(!bid.status || bid.status === "Pending") ? (
                   <button

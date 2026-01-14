@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../config/axios";
-import { MapPin, IndianRupee, ArrowRight, Search, Calendar, Filter } from "lucide-react";
+import {  IndianRupee, ArrowRight, Search, Calendar, Filter } from "lucide-react";
 
 const Dashboard = () => {
   const [gigs, setGigs] = useState([]);
@@ -9,7 +9,7 @@ const Dashboard = () => {
 
   // Filter States
   const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState("All"); // Default to Open
+  const [statusFilter, setStatusFilter] = useState("All"); // Default to All
   const [self, setSelf] = useState(false);
 
   // Fetch Gigs Function
@@ -47,7 +47,7 @@ const Dashboard = () => {
   return (
     <div className="max-w-6xl mx-auto">
 
-      {/* --- FILTERS SECTION --- */}
+      {/*FILTERS SECTION */}
       <div className="mb-8 space-y-4">
         <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
           Find Work
@@ -95,7 +95,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* --- RESULTS SECTION --- */}
+      {/* RESULTS SECTION  */}
       {loading ? (
          <div className="p-20 text-center text-gray-500">Loading Gigs...</div>
       ) : gigs.length > 0 ? (

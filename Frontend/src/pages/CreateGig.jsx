@@ -25,7 +25,7 @@ const CreateGig = () => {
     setIsSubmitting(true);
 
     try {
-      // ✅ FIX: Convert budget from String to Number
+      
       const payload = {
         ...formData,
         budget: Number(formData.budget) 

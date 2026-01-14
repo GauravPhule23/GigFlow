@@ -1,5 +1,7 @@
 const { validateToken } = require("../Utils/auth.Utils")
 
+// handels cookie and parses it to req.user
+
 function checkToken(cookieName){
   return async function (req,res,next){
     req.isLoggedIn = false;

@@ -21,14 +21,14 @@ const BidModal = ({ isOpen, onClose, gigId, gigTitle }) => {
     setIsSubmitting(true);
 
     try {
-      // 1. Prepare Payload with exact variable names
+     
       const payload = {
         gigId: gigId,
-        bidAmt: Number(formData.bidAmt), // Ensure it's a number
+        bidAmt: Number(formData.bidAmt), 
         message: formData.message
       };
 
-      // 2. Send Request
+      // Send Request
       await api.post("/api/bids", payload);
 
       toast.success("Bid placed successfully!");

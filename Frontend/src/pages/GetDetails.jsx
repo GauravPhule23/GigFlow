@@ -27,14 +27,9 @@ const GigDetails = () => {
     fetchGig();
   }, [id]);
 
-  // ✅ FIX: Wait for BOTH Gig data AND User Auth to be ready
-  // If user is 'undefined', AuthContext is still loading, so we wait.
-  // if (loading || user === undefined) {
-  //   return <div className="p-10 text-center dark:text-white">Loading...</div>;
-  // }
-
+  
   let isOwner = undefined
-  // --- OWNERSHIP CHECK LOGIC ---
+  // OWNERSHIP CHECK LOGIC
   if(!user){
     location.reload();    
   }
@@ -42,7 +37,7 @@ const GigDetails = () => {
   const gigOwnerId = gig?.ownerId?._id || gig?.ownerId;
   isOwner = user?._id?.toString() === gigOwnerId?.toString();
   
-  // --- BUTTON VISIBILITY LOGIC ---
+  // BUTTON VISIBILITY LOGIC 
   // Now safe because 'user' is guaranteed to be either an Object (Logged in) or Null (Guest)
   const showPlaceBidButton = !isOwner && gig.status === "Open";
 
@@ -93,10 +88,10 @@ const GigDetails = () => {
           </p>
         </div>
 
-        {/* --- ACTION BUTTON AREA --- */}
+        {/* ACTION BUTTON AREA  */}
         <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
           
-          {/* CASE 1: IS OWNER -> VIEW BIDS */}
+          {/* IS OWNER -> VIEW BIDS */}
           {isOwner && (
             <Link 
               to={`/gig/${id}/bids`}
@@ -106,7 +101,7 @@ const GigDetails = () => {
             </Link>
           )}
 
-          {/* CASE 2: NOT OWNER & OPEN -> PLACE BID */}
+          {/*  NOT OWNER & OPEN -> PLACE BID */}
           {showPlaceBidButton && (
             <button 
               className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 font-semibold shadow-md transition transform hover:-translate-y-0.5"
@@ -116,7 +111,7 @@ const GigDetails = () => {
             </button>
           )}
 
-          {/* CASE 3: NOT OWNER & NOT OPEN -> SHOW CLOSED MESSAGE */}
+          {/*  NOT OWNER & NOT OPEN -> SHOW CLOSED MESSAGE */}
           {!isOwner && gig.status !== "Open" && (
             <div className="w-full py-3 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-lg text-center font-medium flex items-center justify-center gap-2">
               <Lock size={18} />

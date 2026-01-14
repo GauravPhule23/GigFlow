@@ -2,6 +2,8 @@ const Gig = require('../Model/gig.Model')
 const apiResponse = require('../Utils/apiResponse.Utils')
 const apiError = require('../Utils/apiError.Utils')
 
+// handels post gig
+
 async function postGig(req,res){
   try {
     console.log("inside")
@@ -25,7 +27,7 @@ async function postGig(req,res){
     return
   }
 }
-
+// handels searching of gigs with filters
 async function searchGig(req,res){
   try {
     const {status, self=false, page=1, limit=10} = req.query
@@ -54,6 +56,8 @@ async function searchGig(req,res){
     return res.status(500).json(new apiError(e.code, e.message, e));
   }
 }
+
+// sends details of respective gig
 
 async function getGig(req,res){
   try {

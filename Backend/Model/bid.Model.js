@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+//bid model definition
+
 const bidSchema = new mongoose.Schema({
   freelancerId:{type:mongoose.Schema.Types.ObjectId, required:true, ref:'user'},
   gigId:{type:mongoose.Schema.Types.ObjectId, required:true, ref:'gig'},

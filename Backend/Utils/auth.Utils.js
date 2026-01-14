@@ -4,18 +4,19 @@ const secreteKey = process.env.JWT_SECRETE_KEY
 
 async function createToken(user){
  
+  // creating payload
   const payload ={
     _id : user._id    
   }
 
   const token = await JWT.sign(payload,secreteKey,{
-    expiresIn:'1d'
+    expiresIn:'1d' // expires in 1 day
   })
   return token
  
 }
 
-function validateToken(token){
+function validateToken(token){ // token validation middleware
   const payload = JWT.verify(token,secreteKey)
   return payload
 }

@@ -1,4 +1,4 @@
-class apiResponse {
+class apiResponse { // structuring response
   constructor(statusCode, message = "Success", data) {
     this.statusCode = statusCode
     this.message = message

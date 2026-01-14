@@ -4,6 +4,8 @@ const apiError = require('../Utils/apiError.Utils')
 const mongoose = require('mongoose')
 const apiResponse = require('../Utils/apiResponse.Utils')
 
+// Main Atomic logic for hiring
+
 async function hireBid(req, res) {
   try {
     const bidId = req.params.bidId

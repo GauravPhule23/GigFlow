@@ -6,10 +6,10 @@ import { User, Mail, Lock, Loader2, ArrowRight } from "lucide-react";
 const Register = () => {
   const navigate = useNavigate();
   const { register } = useAuth();
-  
+
   const [formData, setFormData] = useState({
     fName: "",
-    lName: "", // ✅ FIXED: Changed null to "" to avoid React warnings
+    lName: "", 
     email: "",
     password: ""
   });
@@ -25,23 +25,23 @@ const Register = () => {
 
     // Call register function from AuthContext
     const success = await register(
-      formData.fName, 
-      formData.lName, // Passing "" is fine for Zod optional strings
-      formData.email, 
+      formData.fName,
+      formData.lName, 
+      formData.email,
       formData.password
     );
 
     if (success) {
-      navigate("/login"); 
+      navigate("/login");
     }
-    
+
     setIsSubmitting(false);
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-12">
       <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 border border-gray-100">
-        
+
         {/* Header */}
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-gray-900">Create Account</h2>
@@ -50,8 +50,8 @@ const Register = () => {
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-5">
-          
-          {/* Name Fields (Row) */}
+
+          {/* Name Fields  */}
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
@@ -68,7 +68,7 @@ const Register = () => {
                 />
               </div>
             </div>
-            
+
             {/* LAST NAME (Optional) */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -79,8 +79,7 @@ const Register = () => {
                 <input
                   name="lName"
                   type="text"
-                  // ❌ removed required
-                  value={formData.lName} 
+                  value={formData.lName}
                   onChange={handleChange}
                   className="w-full pl-9 pr-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm transition"
                   placeholder="Doe"

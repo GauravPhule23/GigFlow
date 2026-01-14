@@ -3,7 +3,7 @@ const Gig = require("../Model/gig.Model")
 const apiResponse = require("../Utils/apiResponse.Utils")
 const apiError = require("../Utils/apiError.Utils")
 
-
+// handels post bid
 
 async function postBid(req, res) {
   try {
@@ -27,7 +27,7 @@ async function postBid(req, res) {
 
   }
 }
-
+// handels get bids route
 async function getBidsForOwner(req,res){
   try {
     const gigId = req.params.gigId

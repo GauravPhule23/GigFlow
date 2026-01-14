@@ -1,5 +1,7 @@
 const apiError = require('../Utils/apiError.Utils');
 
+// Checking if the user is logged-in
+
 function isLogin(req,res,next){
   try {
     if(req.isLoggedIn){

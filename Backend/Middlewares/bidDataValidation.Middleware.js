@@ -1,6 +1,7 @@
 const { z } = require('zod')
 const apiError = require('../Utils/apiError.Utils')
 
+// bid post data validation
 
 function bidData(req, res, next) {
   try {

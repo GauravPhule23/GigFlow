@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+// gig schema definition
+
 const gigSchema = new mongoose.Schema({
   ownerId:{type:mongoose.Schema.Types.ObjectId, required:true, ref:'user'},
   title:{type:String, required:true},

@@ -3,12 +3,16 @@ const bcrypt = require('bcrypt');
 const apiError = require('../Utils/apiError.Utils');
 const { createToken } = require('../Utils/auth.Utils');
 
+// User Moedl creation
+
 const userSchema = new mongoose.Schema({
   fName: { type: String, required: true },
   lName: { type: String },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true }
 }, { timestamps: true });
+
+// Hashing before saving data to db
 
 userSchema.pre('save', async function (next) {
   try {
@@ -25,6 +29,8 @@ userSchema.pre('save', async function (next) {
     throw new apiError(500, e.message)
   }
 })
+
+// creating method for sign-in user by creating token
 
 userSchema.method("signinUser", async function (password){
   const user = this
