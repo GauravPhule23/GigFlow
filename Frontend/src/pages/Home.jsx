@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react"; // 1. Import useRef
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import { ArrowRight, Briefcase } from "lucide-react";
@@ -6,19 +6,26 @@ import { ArrowRight, Briefcase } from "lucide-react";
 const Home = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+  const videoRef = useRef(null); // 2. Create the ref
 
-  // If user is already logged in, redirect to Dashboard immediately
   useEffect(() => {
     if (!loading && user) {
       navigate("/dashboard");
     }
   }, [user, loading, navigate]);
 
-  if (loading) return null; // Prevent flickering while checking auth
+  // 3. Set the playback speed once the component mounts
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 1.5;
+    }
+  }, []);
+
+  if (loading) return null;
 
   return (
-    <div className="min-h-screen bg-white flex flex-col justify-center items-center px-4">
-      <div className="text-center max-w-3xl mx-auto">
+    <div className="min-h-screen bg-white flex flex-col justify-center items-center px-4 py-12">
+      <div className="text-center max-w-3xl mx-auto mb-12">
         <div className="flex justify-center mb-6">
           <div className="bg-blue-100 p-4 rounded-full">
             <Briefcase className="h-12 w-12 text-blue-600" />
@@ -33,6 +40,22 @@ const Home = () => {
           GigFlow connects talented freelancers with clients looking for expertise. 
           Join our community to start earning or find the talent you need.
         </p>
+      {/* --- VIDEO SECTION --- */}
+      <div className="w-full max-w-4xl mx-auto mt-8 rounded-2xl overflow-hidden shadow-2xl border-4 border-gray-100">
+        <video 
+          ref={videoRef} // 4. Attach the ref
+          src="/SubmissionVideo.webm" // Ensure this file is in your 'public' folder
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          // 5. CSS Clip Path: inset(top right bottom left)
+          style={{ clipPath: "inset(0px 20px 0px 0px)" }} 
+          className="w-full h-auto object-cover opacity-90"
+        />
+      </div>
+      <br />
+      <br />
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
@@ -50,6 +73,8 @@ const Home = () => {
           </Link>
         </div>
       </div>
+
+      
     </div>
   );
 };
