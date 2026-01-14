@@ -21,8 +21,8 @@ app.set('trust proxy', 1); //for render loadBalancer
 app.use(cors({
   origin:process.env.FRONTEND_URL,
   credentials:true,
-  methods:"GET PUT POST DELETE OPTIONS HEAD PATCH",
-  allowedHeaders: "Content-Type, Authorization"
+  methods:["GET", "PUT", "POST", "DELETE", "OPTIONS", "HEAD", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }))
 
 app.use(express.json());

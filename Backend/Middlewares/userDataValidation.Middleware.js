@@ -4,22 +4,28 @@ const apiError = require('../Utils/apiError.Utils')
 
 function registrationData(req, res, next) {
   try {
+    console.log("inside "+req.body.lName)
     const reqBody = z.object({
       fName: z.string().min(3).max(20),
-      lName: z.string().min(3).max(20).optional(),
+      lName: z.string().min(3).optional().or(z.literal("")),
       email: z.email().min(3).max(20),
       password: z.string().min(3).max(20)
-        .regex(/[A-Z]/, { message: "At least a Capital Letter" })
-        .regex(/[a-z]/, { message: "At least a small Letter" })
-        .regex(/[0-9]/, { message: "At least a number" })
-        .regex(/[!@#$%^&*]/, { message: "At least a special character" }),
+      .regex(/[A-Z]/, { message: "At least a Capital Letter" })
+      .regex(/[a-z]/, { message: "At least a small Letter" })
+      .regex(/[0-9]/, { message: "At least a number" })
+      .regex(/[!@#$%^&*]/, { message: "At least a special character" }),
     })
-
+    console.log("success 2")
+    
     const data = reqBody.safeParse(req.body)
+    console.log("success 1")
     if (data.success) {
+      console.log("success")
       req.body = data.data
       next();
     } else {
+      console.log(data.error)
+      
       res.status(400).json(new apiError(400, "Data Validation Failed", data.error))
     }
   } catch (error) {

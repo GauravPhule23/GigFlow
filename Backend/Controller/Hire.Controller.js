@@ -7,10 +7,15 @@ const apiResponse = require('../Utils/apiResponse.Utils')
 async function hireBid(req, res) {
   try {
     const bidId = req.params.bidId
+    console.log("inside hireBid")
     const bid = await Bid.findById(bidId).populate("gigId", "ownerId hiredBid")
-
-    if (!bid || bid.gigId.ownerId.toString() != req.user._id || bid.gigId.hiredBid) {
-      return res.status(400).json(new apiError(400,"Invalid request or unauthorized"))
+    
+    if (!bid || bid.gigId.ownerId.toString() !== req.user._id || bid.gigId.hiredBid) {
+      console.log(bid.gigId.ownerId.toString() !== req.user._id )
+      console.log(bid.gigId.ownerId.toString() )
+      console.log( req.user._id )
+      console.log( bid.gigId.hiredBid )
+      return res.status(400).json(new apiError(400,["Invalid request or unauthorized"]))
     }
     const session = await mongoose.startSession();
     try {

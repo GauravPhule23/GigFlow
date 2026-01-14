@@ -4,6 +4,7 @@ const apiError = require('../Utils/apiError.Utils')
 
 async function postGig(req,res){
   try {
+    console.log("inside")
     let {title, description, budget, completionDate} = req.body
     if(!description){
       description=null;
@@ -27,7 +28,7 @@ async function postGig(req,res){
 
 async function searchGig(req,res){
   try {
-    const {status="Open", self=false, page=1, limit=10} = req.query
+    const {status, self=false, page=1, limit=10} = req.query
 
     const query = {};
     if(status){
@@ -60,10 +61,18 @@ async function getGig(req,res){
     if(!id){
       return res.status(400,"Gig id required")
     }
-    const detail = await Gig.findById(id)
+    const detail = await Gig.findById(id).populate({
+      path:'hiredBid',
+      select: 'freelancerId amount', // Select fields from the Bid document
+    populate: {
+      path: 'freelancerId',        // This field is inside the 'Bid' model
+      select: 'fName lName'
+      }
+    })
     if(!detail){
       return res.status(404,"Gig no found")
     }
+    console.log(detail)
 
     return res.status(200).json(new apiResponse(200,"Gig details",detail))
   } catch (e) {

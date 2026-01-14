@@ -50,6 +50,7 @@ async function login(req,res){
     const isUser = await User.findOne({email});
     console.log("inside login")
     if(!isUser){
+      console.log("inside login 2")
       res.status(404).json(new apiError(404,"user not found"))
       return
     }
@@ -80,8 +81,21 @@ async function login(req,res){
   }
 }
 
+async function logout(req,res){
+  try{
+    res.status(200).clearCookie("token", { 
+      httpOnly: true,
+      sameSite: "none", 
+      secure: true    // Set to true if using HTTPS
+    }).json(new apiResponse(200,"User logged out"));
+  }catch(e){
+    res.status(500).json({ success: false, message: "Logout failed" });
+  }
+}
+
 module.exports={
   sign_up,
-  login
+  login,
+  logout
 }
 
