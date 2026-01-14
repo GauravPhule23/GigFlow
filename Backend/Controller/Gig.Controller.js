@@ -30,9 +30,12 @@ async function postGig(req,res){
 // handels searching of gigs with filters
 async function searchGig(req,res){
   try {
-    const {status, self=false, page=1, limit=10} = req.query
+    const {search, status, self=false, page=1, limit=10} = req.query
 
     const query = {};
+    if(search){
+      query.title = { $regex: search, $options: "i" };
+    }
     if(status){
       query.status = status;
     }
